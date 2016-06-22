@@ -30,7 +30,9 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.roomSubscription();
+    if (this.roomSubscription) {
+      this.roomSubscription();
+    }
   }
 
   routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) {
