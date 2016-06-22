@@ -44,7 +44,7 @@ app.get( /^\/(?!node_modules).*/, function( req, res ) {
 } );
 
 require('./server/routes/auth').createAuthRoutes(app, io, mongoose);
-//require('./server/routes/challenges').addChallengeRoutes(app,io,mongoose);
+require('./server/routes/chat-routes').addChatRoutes(app, io);
 
 
 

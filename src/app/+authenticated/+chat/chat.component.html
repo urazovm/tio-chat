@@ -1,3 +1,22 @@
-<p>
-  {{id}}
-</p>
+<div class="chat-component">
+  <div class="chat-container">
+    <div class="chat-body">
+      <div *ngFor="let msg of msgs">
+        <div [ngClass]="currentUser.user === msg.fromUser ? 'self-message' : 'other-message'">
+          <span style="font-weight: bold">{{msg.fromUser}}</span>:<span>{{msg.msg}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="message-box">
+        <md-input type="text" placeholder="message"
+                  (keyup.enter)="sendMessage($event.target)">
+
+        </md-input>
+    </div>
+  </div>
+  <div class="users-container">
+
+      <h5>Users:</h5>
+
+  </div>
+</div>

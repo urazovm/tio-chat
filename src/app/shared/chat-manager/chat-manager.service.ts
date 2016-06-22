@@ -16,14 +16,19 @@ export class ChatManagerService {
                 this.chatMsgs[chat.roomId] = [];
             }
             this.chatMsgs[chat.roomId] = chat.msgs || [];
+            _.each(this.chatObservers[chat.roomId], (obs) => {
+                obs.next(this.chatMsgs[chat.roomId]);
+            });
         });
 
-        this.socket.on('chat:new', (msg) => {
+        this.socket.on('chat:add', (msg) => {
             if(!this.chatMsgs[msg.roomId]) {
                 this.chatMsgs[msg.roomId] = [];
             }
             this.chatMsgs[msg.roomId] = [...this.chatMsgs[msg.roomId], msg];
-
+            _.each(this.chatObservers[msg.roomId], (obs) => {
+                obs.next(this.chatMsgs[msg.roomId]);
+            });
         });
 
         this.socket.on('rooms:init', (rooms) =>{
@@ -56,5 +61,9 @@ export class ChatManagerService {
             }
         });
     }
+
+  sendMessage(room, msg) {
+    this.socket.emit('chat:add', {roomId: room, msg: msg});
+  }
 
 }
