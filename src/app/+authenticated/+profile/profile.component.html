@@ -1,116 +1,16 @@
 <div class="padded flex-container">
-  <div class="centered" *ngIf="!overwatchData">
-    <md-spinner>
-    </md-spinner>
-  </div>
   <md-tab-group class="md-accent flex-container">
-    <!--
-    <template md-tab-label>Today</template>
+    <template md-tab-label>Stats</template>
     <template md-tab-content>
-      <md-card class="champ-card" *ngFor="let champCard of today | values  | sort:'key'">
-        <md-card-title>{{champCard.key}}</md-card-title>
-        <md-card class="stat-card" *ngFor="let category of champCard.value | values">
-          <md-card-title>{{category.key}}</md-card-title>
-          <table>
-            <tr *ngFor="let stat of category.value | values | sort:'key'">
-              <td>{{stat.key}}</td>
-              <td>{{stat.value.current}}</td>
-              <td [style.color]="stat.value.change < 0 ? 'red' : (stat.value.change > 0 ? 'green' : 'black')">
-                {{stat.value.change > 0 ? '+' : ''}}{{stat.value.change ? stat.value.change : ''}}
-              </td>
-            </tr>
-          </table>
-        </md-card>
+      <md-card>
+        <md-card-title class="champ-title">In Progress</md-card-title>
       </md-card>
     </template>
-    <template md-tab-label>This Week</template>
+    <template md-tab-label>Settings</template>
     <template md-tab-content>
-      <md-card class="champ-card" *ngFor="let champCard of week | values  | sort:'key'">
-        <md-card-title>{{champCard.key}}</md-card-title>
-        <md-card class="stat-card" *ngFor="let category of champCard.value | values">
-          <md-card-title>{{category.key}}</md-card-title>
-          <table>
-            <tr *ngFor="let stat of category.value | values | sort:'key'">
-              <td>{{stat.key}}</td>
-              <td>{{stat.value.current}}</td>
-              <td [style.color]="stat.value.change < 0 ? 'red' : (stat.value.change > 0 ? 'green' : 'black')">
-                {{stat.value.change > 0 ? '+' : ''}}{{stat.value.change ? stat.value.change : ''}}
-              </td>
-            </tr>
-          </table>
-        </md-card>
+      <md-card>
+        <md-card-title class="champ-title">In Progress</md-card-title>
       </md-card>
-    </template>
-    -->
-    <template md-tab-label>Current</template>
-    <template md-tab-content>
-      <md-card class="champ-card" *ngFor="let champCard of month | values  | sort:'key'">
-        <md-card-title class="champ-title">{{champCard.key}}</md-card-title>
-        <div style="display:flex; flex-direction:row; flex-wrap: wrap;">
-          <md-card class="stat-card" *ngFor="let category of champCard.value | values">
-            <md-card-title class="flex-container">{{category.key}}</md-card-title>
-            <table>
-              <tr *ngFor="let stat of category.value | values | sort:'key'">
-                <td>{{stat.key}}</td>
-                <td>{{stat.value.current}}</td>
-                <td [style.color]="stat.value.change < 0 ? 'red' : (stat.value.change > 0 ? 'green' : 'black')">
-                  {{stat.value.change > 0 ? '+' : ''}}{{stat.value.change ? stat.value.change : ''}}
-                </td>
-              </tr>
-            </table>
-          </md-card>
-        </div>
-      </md-card>
-    </template>
-    <template md-tab-label>Ranking</template>
-    <template md-tab-content>
-      <md-card class="champ-card" *ngFor="let champCard of rankings | values  | sort:'key'">
-        <md-card-title class="champ-title">{{champCard.key}}</md-card-title>
-        <div style="display:flex; flex-direction:row; flex-wrap: wrap;">
-          <md-card class="stat-card" *ngFor="let category of champCard.value | values">
-            <md-card-title>{{category.key}}</md-card-title>
-            <table>
-              <tr *ngFor="let stat of category.value | values | sort:'key'">
-                <td>{{stat.key}}</td>
-                <td>{{stat.value.current}}</td>
-                <td [style.color]="stat.value.color">
-                  {{stat.value.ranking}}
-                </td>
-              </tr>
-            </table>
-          </md-card>
-        </div>
-      </md-card>
-    </template>
-    <template md-tab-label>Table</template>
-    <template md-tab-content>
-      <div class="stats-table">
-        <div style="display:flex; flex-direction:row; white-space: nowrap;">
-          <div style="display:flex; flex-direction: row;">
-           <div class="stats-table-header" (click)="sortTable('Name')">Hero</div>
-          </div>
-          <div  style="display: flex; flex-direction: row; overflow: hidden; margin: 0; padding: 0;" [scrollLeft]="scrollLeft">
-            <div class="stats-table-header" *ngFor="let header of headers.slice(1)" (click)="sortTable(header)">
-              {{header}}
-            </div>
-            <div style="flex: 0 0 17px"></div> <!--filler for scroll bar-->
-          </div>
-        </div>
-        <div style="display:flex; flex-shrink: 1; flex-direction:row;">
-          <div style="display:flex; flex-direction:column; overflow-y:hidden;padding-bottom:15px;" [scrollTop]="scrollTop">
-            <div class="stats-table-row" *ngFor="let row of rows">
-              <div class="stats-table-cell">{{row['Name']}}</div>
-            </div>
-            <div style="flex: 0 0 17px"></div> <!--filler for scroll bar-->
-          </div>
-
-          <div class="flex-container" style="overflow:auto;" (scroll)="handleScroll($event)">
-            <div class="stats-table-row" *ngFor="let row of rows">
-              <div class="stats-table-cell" *ngFor="let header of headers.slice(1)">{{row[header] || '&nbsp;'}}</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </template>
   </md-tab-group>
 </div>

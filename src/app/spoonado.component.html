@@ -14,22 +14,17 @@
       </md-list-item>
       <md-divider></md-divider>
       <h3 md-subheader>Chat Rooms</h3>
-      <md-list-item *ngIf="chatRooms && chatRooms.length">
-        <button md-button (click)="navigate('a/challenges/'+challenge._id)">
-          {{challenge.name}}
+      <md-list-item *ngIf="currentUser.user">
+        <button md-button (click)="navigate('a/chat/general')">
+          general
         </button>
       </md-list-item>
       <md-list-item *ngFor="let room of chatRooms">
-        <button md-button (click)="navigate('a/challenges/'+room.name)">
+        <button md-button (click)="navigate('a/chat/'+room.name)">
           {{room.id}}
         </button>
       </md-list-item>
      <md-divider></md-divider>
-      <md-list-item>
-        <button md-button (click)="navigate('a/new-challenge')">
-          New Chat Room
-        </button>
-      </md-list-item>
       <md-divider></md-divider>
       <md-lsit-item>
         <button md-button (click)="start.close()">CLOSE</button>

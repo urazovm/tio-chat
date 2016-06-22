@@ -9,10 +9,9 @@ import { AuthenticatedComponent } from './+authenticated';
 import { LoginComponent } from './+login';
 import { CurrentUserService } from './shared/current-user/current-user.service';
 import { SocketService } from './shared/socket/socket.service';
-import { ChallengeManagerService } from './shared/challenge-manager/challenge-manager.service';
 import { MdRadioDispatcher } from '@angular2-material/radio';
-import { ChallengeScoreService } from './shared/challenge-score/challenge-score.service';
 //import { ProfileComponent } from './+authenticated/+profile/profile.component';
+import { ChatManagerService } from './shared/chat-manager'
 
 const _ = window['_'];
 
@@ -22,8 +21,7 @@ const _ = window['_'];
   templateUrl: 'spoonado.component.html',
   styleUrls: ['spoonado.component.css'],
   directives: [ROUTER_DIRECTIVES, MdToolbar, MdIcon, MdButton, MD_SIDENAV_DIRECTIVES, MD_LIST_DIRECTIVES],
-  providers: [MdIconRegistry, MdRadioDispatcher, CurrentUserService, SocketService, ChallengeManagerService,
-    ChallengeScoreService],
+  providers: [MdIconRegistry, MdRadioDispatcher, CurrentUserService, SocketService, ChatManagerService],
 })
 @Routes([
   {path: '/a', component: AuthenticatedComponent},
@@ -33,8 +31,7 @@ const _ = window['_'];
 ])
 export class SpoonadoAppComponent {
   chatRooms: any[] = [];
-  constructor(private router: Router, public currentUser: CurrentUserService,
-              private challengeManager: ChallengeManagerService) {
+  constructor(private router: Router, public currentUser: CurrentUserService) {
    /* this.challengeManager.getChallenges()
       .subscribe((challenges) => {
         this.challenges = _.filter(challenges, (chal)=>{return chal.status !== 'completed';});

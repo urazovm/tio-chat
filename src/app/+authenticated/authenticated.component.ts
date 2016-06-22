@@ -4,6 +4,7 @@ import { ChatComponent } from './+chat';
 import { ProfileComponent } from './+profile';
 import { CurrentUserService } from '../shared/current-user/current-user.service';
 import { SocketService } from '../shared/socket/socket.service';
+import { NewChatComponent } from './+new-chat';
 
 let authenticatedJwt = '';
 
@@ -15,10 +16,11 @@ let authenticatedJwt = '';
   directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
-  {path: '/chat', component: ChatComponent},
+  {path: '/chat/:id', component: ChatComponent},
+  {path: '/new', component: NewChatComponent},
   {path: '/profile', component: ProfileComponent},
-  {path: '/', component: ProfileComponent},
-  {path: '/**', component: ChatComponent},
+  {path: '/', component: ChatComponent},
+  {path: '/chat', component: ChatComponent},
 
 ])
 export class AuthenticatedComponent implements OnInit, OnActivate {

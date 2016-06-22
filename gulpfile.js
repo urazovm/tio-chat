@@ -113,7 +113,7 @@ gulp.task('html', function() {
 
 gulp.task('system', function(cb) {
   var builder = new Builder('./tmp', './tmp/system-config.js');
-  builder.buildStatic('./tmp/app.js', "dist/app.min.js", {minify: true, sfx: true})
+  builder.buildStatic('./tmp/app.js', "dist/app.min.js", {sourceMaps: false, minify: true, sfx: true})
     .then(function () {
       console.log('here');
       cb();
@@ -128,7 +128,7 @@ gulp.task('sys', function(cb) {
   var builder = new Builder();
   builder.loadConfig('./tmp/system-config.js')
     .then( function() {
-      builder.buildStatic('./tmp/app.js', "dist/app.min.js", {minify: true})
+      builder.buildStatic('./tmp/app.js', "dist/app.min.js", {sourceMaps: false, minify: true})
         .then(function () {
 
         })
