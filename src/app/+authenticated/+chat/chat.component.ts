@@ -5,13 +5,15 @@ import { MdInput } from '@angular2-material/input';
 
 import { ChatManagerService } from '../../shared/chat-manager';
 import { CurrentUserService } from '../../shared/current-user';
+import { ChatPipe } from '../../shared/pipes/chat-message.pipe';
 
 @Component({
   moduleId: 'taranio',
   selector: 'app-chat',
   templateUrl: 'chat.component.html',
   styleUrls: ['chat.component.css'],
-  directives: [ MdCard, MdInput ],
+  directives: [MdCard, MdInput],
+  pipes: [ChatPipe]
 })
 export class ChatComponent implements OnInit, OnActivate, OnDestroy {
   id: string;
@@ -30,8 +32,8 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.roomSubscription) {
-      this.roomSubscription();
+    if (this.roomSubscription && false) {//fix cleanup later
+      this.roomSubscription.dispose();
     }
   }
 
