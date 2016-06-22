@@ -31,7 +31,8 @@
   display:flex;
   flex-direction: column;
   flex: 0 0 100px;
-  background-color: #dfe0e0;
+  background-color: #f3f3f3;
+  border-left: 1px solid #e0d9d9;
 }
 
 .self-message {
