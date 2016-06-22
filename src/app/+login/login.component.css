@@ -1,0 +1,42 @@
+.name {
+    display:block;
+    width: 200px;
+    margin-top: 25px;
+}
+
+form {
+    padding: 8px;
+}
+
+.error {
+  color: #ba3e35;
+}
+
+.login-card {
+  width: 150px;
+  margin: 8px;
+  float: left;
+  height:150px;
+}
+
+
+.md-radio-label-content {
+  float: none;
+}
+
+.login-button {
+  display: block;
+  clear: both;
+  margin: 8px;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+:host >>> .md-radio-label-content{
+  float: none !important;
+}
+

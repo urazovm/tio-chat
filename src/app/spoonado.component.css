@@ -1,0 +1,37 @@
+.side-nav {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.side-nav md-sidenav {
+  min-width: 26%;
+}
+
+.side-nav [md-button] {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  margin: 24px 0;
+}
+
+md-toolbar .toolbar-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 10px;
+}
+
+md-toolbar md-icon {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+md-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}

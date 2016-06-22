@@ -1,0 +1,22 @@
+{
+  "name": "taranio",
+  "scripts": {
+  },
+  "env": {
+    "NPM_CONFIG_PRODUCTION": "false"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+    "mongolab",
+    "heroku-redis"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

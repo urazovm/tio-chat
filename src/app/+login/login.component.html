@@ -1,0 +1,13 @@
+<div class="flex-container">
+  <form #f="ngForm">
+    <md-card>
+      <md-input class="name" placeholder="username" ngControl="username"></md-input>
+      <div *ngIf="error" class="error">*{{error}}</div>
+      <!--<md-input type="password" placeholder="password(optional)" ngControl="username"></md-input>-->
+      <md-input type="password" placeholder="password(optional)" ngControl="password"></md-input>
+      <div class="login-button">
+        <button md-raised-button (click)="login(f)" [disabled]="loggingIn">login</button>
+      </div>
+    </md-card>
+  </form>
+</div>
