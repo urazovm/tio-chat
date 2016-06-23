@@ -56,5 +56,4 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy {
     this.chatManager.sendMessage(this.id, target.value);
     target.value = null;
   }
-
 }

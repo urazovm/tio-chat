@@ -25,7 +25,6 @@ export class UserManagerService {
             }
             console.log(this.users[user.roomId]);
             if (_.findIndex(this.users[user.roomId],(a)=>a===user.user) !== -1) {
-                alert('here');
                 return;
             }
             this.users[user.roomId] = [...this.users[user.roomId], user.user];
