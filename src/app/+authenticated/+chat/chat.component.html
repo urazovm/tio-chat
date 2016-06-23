@@ -1,4 +1,4 @@
-<div class="chat-component">
+<div class="chat-component" (window:blur)="blur()" (window:focus)="focus()">
   <div class="chat-container">
     <div class="chat-body">
       <div *ngFor="let msgBlock of msgs | chat">

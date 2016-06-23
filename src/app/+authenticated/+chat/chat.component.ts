@@ -25,6 +25,8 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   userSubscription: any;
   newMessage: boolean = false;
   elChatList: any;
+  bFocus: boolean = true;
+  screenFlashInterval: any = null;
   constructor(public chatManager: ChatManagerService, public currentUser: CurrentUserService,
               private userManager: UserManagerService, public element: ElementRef) {
 
@@ -32,14 +34,14 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
 
   ngOnInit() {
     this.elChatList = this.element.nativeElement.querySelector('.chat-body');
-    
+
     this.roomSubscription = this.chatManager.joinRoom(this.id)
       .subscribe((msgs) => {
         this.msgs = msgs;
         if(this.elChatList.scrollTop + this.elChatList.clientHeight >= this.elChatList.scrollHeight-10) {
           this.newMessage = true;
         }
-
+        this._flash();
       });
 
     this.userSubscription = this.userManager.getUsersForRoom(this.id)
@@ -73,5 +75,29 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   sendMessage(target) {
     this.chatManager.sendMessage(this.id, target.value);
     target.value = null;
+  }
+
+  _flash() {
+    if (!this.bFocus && !this.screenFlashInterval && this.msgs.length &&
+      this.msgs[this.msgs.length-1].fromUser !== this.currentUser.user) {
+      let bNewMessage = true;
+      this.screenFlashInterval = setInterval( function() {
+        if( bNewMessage ) {
+          document.title = 'New Message';
+        }
+        else {
+          document.title = 'taran.io';
+        }
+        bNewMessage = !bNewMessage;
+      }, 1300 );
+    }
+  }
+
+  blur() {
+    this.bFocus = false;
+  }
+  focus() {
+    this.bFocus = true;
+    clearInterval(this.screenFlashInterval);
   }
 }
