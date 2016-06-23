@@ -41,7 +41,8 @@
   background-color: #f3f3f3;
   margin: 4px 4px 4px 20px;
   border-radius: 13px;
-  width: 90%;
+  width: 75%;
+
 }
 
 .other-message {
@@ -50,7 +51,7 @@
   background-color: #f3f3f3;
   margin: 4px 20px 4px 4px;
   border-radius: 13px;
-  width: 90%;
+  width: 75%;
 
 }
 .message-box {

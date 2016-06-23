@@ -23,7 +23,6 @@ export class UserManagerService {
             if(!this.users[user.roomId]) {
                 this.users[user.roomId] = [];
             }
-            console.log(this.users[user.roomId]);
             if (_.findIndex(this.users[user.roomId],(a)=>a===user.user) !== -1) {
                 return;
             }
@@ -56,7 +55,7 @@ export class UserManagerService {
             }
             return () => {
                 //dispose function, remove it form the list
-                this.usersObservers[room] = _.filter(this.usersObservers, (obs) => {
+                this.usersObservers[room] = _.filter(this.usersObservers[room], (obs) => {
                     return obs !== observer;
                 });
             };

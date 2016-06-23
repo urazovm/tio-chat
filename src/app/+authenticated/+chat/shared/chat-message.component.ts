@@ -13,6 +13,6 @@ export class ChatMessage {
     }
 
     ngOnInit() {
-        console.log(this.msg);
+
     }
 }

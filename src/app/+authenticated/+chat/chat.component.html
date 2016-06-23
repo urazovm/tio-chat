@@ -4,7 +4,7 @@
       <div *ngFor="let msgBlock of msgs | chat">
         <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'">
           <div class="chat-header">
-            <span class="chat-header-user">{{msgBlock.user}}</span>
+            <span class="chat-header-user">{{msgBlock.user === currentUser.user ? 'You' : msgBlock.user}}</span>
             &nbsp;
             <span class="chat-header-time">{{msgBlock.timestamp | date:'shortTime'}}</span>
           </div>
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="message-box">
-      <md-input type="text" placeholder="message"
+      <md-input dividerColor="accent" type="text" placeholder="message"
                 (keyup.enter)="sendMessage($event.target)">
 
       </md-input>
