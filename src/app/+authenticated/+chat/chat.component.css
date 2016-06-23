@@ -83,3 +83,11 @@
   opacity: .6;
   float: right;
 }
+
+.chat-user {
+  overflow-wrap: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  text-overflow: ellipsis;
+}
