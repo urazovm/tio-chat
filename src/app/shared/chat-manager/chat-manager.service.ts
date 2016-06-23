@@ -6,6 +6,7 @@ const _ = window['_'];
 
 @Injectable()
 export class ChatManagerService {
+    activeRooms: any[] = [];
     rooms: any[] = [];
     roomObservers = [];
     chatObservers = {};
@@ -38,6 +39,12 @@ export class ChatManagerService {
             });
         });
 
+        this.socket.on('reconnect', ()=> {
+            _.each(this.activeRooms, (room) => {
+                this.socket.emit('chat:join', room);
+            });
+        });
+
     }
 
     /*
@@ -45,6 +52,7 @@ export class ChatManagerService {
      */
     joinRoom(room: string) {
         this.socket.emit('chat:join', room);
+        this.activeRooms.push(room);
 
         return Observable.create( (observer) => {
             this.chatObservers[room] = this.chatObservers[room] || [];
@@ -54,12 +62,18 @@ export class ChatManagerService {
             }
             return () => {
                 //dispose function, remove it form the list
-                this.chatObservers[room] = _.filter(this.roomObservers, (obs) => {
-                    this.socket.emit('chat:leave', room);
+                this.chatObservers[room] = _.filter(this.chatObservers, (obs) => {
                     return obs !== observer;
                 });
-            }
+            };
         });
+    }
+
+    leaveRoom(room) {
+        this.activeRooms = _.filter(this.activeRooms, (activeRoom) => {
+            return activeRoom !== room
+        });
+        this.socket.emit('chat:leave', room);
     }
 
   sendMessage(room, msg) {

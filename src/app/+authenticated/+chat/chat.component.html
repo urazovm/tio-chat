@@ -3,21 +3,29 @@
     <div class="chat-body">
       <div *ngFor="let msgBlock of msgs | chat">
         <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'">
-          <h5>{{msgBlock.user}}</h5>
+          <div class="chat-header">
+            <span class="chat-header-user">{{msgBlock.user}}</span>
+            &nbsp;
+            <span class="chat-header-time">{{msgBlock.timestamp | date:'shortTime'}}</span>
+          </div>
           <div *ngFor="let msg of msgBlock.msgs">
-            <div>{{msg.msg}}</div>
+            <message [msg]="msg"></message>
           </div>
         </div>
       </div>
     </div>
     <div class="message-box">
-        <md-input type="text" placeholder="message"
-                  (keyup.enter)="sendMessage($event.target)">
+      <md-input type="text" placeholder="message"
+                (keyup.enter)="sendMessage($event.target)">
 
-        </md-input>
+      </md-input>
     </div>
   </div>
   <div class="users-container">
-      <h5>Users:</h5>
+    <h5>Online:</h5>
+    <hr/>
+    <div *ngFor="let user of users">
+      {{user}}
+    </div>
   </div>
 </div>

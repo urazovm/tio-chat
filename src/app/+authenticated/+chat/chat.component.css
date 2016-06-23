@@ -66,3 +66,17 @@
   width: 100%;
 }
 
+.chat-header {
+  margin-bottom: 8px;
+}
+
+.chat-header-user {
+  font-size: large;
+  font-weight: bold;
+}
+
+.chat-header-time {
+  font-size: small;
+  opacity: .6;
+  float: right;
+}
