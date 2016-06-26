@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 const _ =  window['_'];
-
+const nameSearch = /@[a-zA-Z0-9]/i;
 @Pipe({name: 'chat'})
 export class ChatPipe implements PipeTransform {
   transform(ary: any[]): any[] {
@@ -12,12 +12,11 @@ export class ChatPipe implements PipeTransform {
     _.each(ary, (msg) => {
       if (lastName !== msg.fromUser) {
         lastName = msg.fromUser;
-        if(currentChat) {
-          returnAry.push(currentChat);
-        }
+        this._addChat(returnAry, currentChat);
         lastTimestamp = new Date(msg.timestamp);
         currentChat = {
           user: msg.fromUser,
+          _id: msg._id,
           msgs: [],
           timestamp: new Date(msg.timestamp),
         }
@@ -34,5 +33,17 @@ export class ChatPipe implements PipeTransform {
       returnAry.push(currentChat);
     }
     return returnAry;
+  }
+  _addChat(returnAry, currentChat) {
+    if(currentChat) {
+      let bMentionsMe = false;
+      _.each(currentChat.msgs, (msg) =>{
+        bMentionsMe = bMentionsMe || nameSearch.test(msg.msg);
+      });
+      
+      currentChat.mentionsMe = bMentionsMe;
+      currentChat._id += currentChat.msgs.length;
+      returnAry.push(currentChat);
+    }
   }
 }

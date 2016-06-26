@@ -54,9 +54,11 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
 
     if (this.roomSubscription) {//fix cleanup later
       this.roomSubscription.unsubscribe();
+      this.roomSubscription = null;
     }
     if (this.userSubscription) {//fix cleanup later
       this.userSubscription.unsubscribe();
+      this.userSubscription = null;
     }
   }
 
@@ -98,6 +100,14 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   }
   focus() {
     this.bFocus = true;
-    clearInterval(this.screenFlashInterval);
+    if (this.screenFlashInterval) {
+      clearInterval(this.screenFlashInterval);
+      this.screenFlashInterval = null;
+    }
   }
+
+  chatTracker(index, item) {
+    return item._id;
+  }
+  
 }

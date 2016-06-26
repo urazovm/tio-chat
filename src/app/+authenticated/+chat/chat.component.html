@@ -1,14 +1,15 @@
 <div class="chat-component" (window:blur)="blur()" (window:focus)="focus()">
   <div class="chat-container">
     <div class="chat-body">
-      <div *ngFor="let msgBlock of msgs | chat">
-        <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'">
+      <div *ngFor="let msgBlock of msgs | chat; let i = $index; trackFn:'chatTracker'">
+        <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'"
+             [ngClass]="msgBlock.mentionsMe ? 'notify-message' : ''">
           <div class="chat-header">
             <span class="chat-header-user">{{msgBlock.user === currentUser.user ? 'You' : msgBlock.user}}</span>
             &nbsp;
             <span class="chat-header-time">{{msgBlock.timestamp | date:'shortTime'}}</span>
           </div>
-          <div *ngFor="let msg of msgBlock.msgs">
+          <div *ngFor="let msg of msgBlock.msgs; let i = $index; trackFn:'chatTracker'">
             <message [msg]="msg"></message>
           </div>
         </div>
