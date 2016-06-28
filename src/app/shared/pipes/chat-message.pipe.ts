@@ -27,7 +27,7 @@ export class ChatPipe implements PipeTransform {
         currentChat.msgs.push({type: 'date', msg: '', timestamp: currentTimestamp});
         lastTimestamp = currentTimestamp;
       }
-      currentChat.msgs.push({type: 'chat', msg: msg.msg, timestamp: currentTimestamp});
+      currentChat.msgs.push({type: 'chat', msg: msg.msg, timestamp: currentTimestamp, words: msg.msg.split(' ')});
     });
     if (currentChat) {
       returnAry.push(currentChat);
@@ -40,7 +40,7 @@ export class ChatPipe implements PipeTransform {
       _.each(currentChat.msgs, (msg) =>{
         bMentionsMe = bMentionsMe || nameSearch.test(msg.msg);
       });
-      
+
       currentChat.mentionsMe = bMentionsMe;
       currentChat._id += currentChat.msgs.length;
       returnAry.push(currentChat);

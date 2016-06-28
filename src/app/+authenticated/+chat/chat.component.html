@@ -1,7 +1,7 @@
 <div class="chat-component" (window:blur)="blur()" (window:focus)="focus()">
   <div class="chat-container">
     <div class="chat-body">
-      <div *ngFor="let msgBlock of msgs | chat; let i = $index; trackFn:'chatTracker'">
+      <div *ngFor="let msgBlock of msgs | chat; trackBy:chatTracker;">
         <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'"
              [ngClass]="msgBlock.mentionsMe ? 'notify-message' : ''">
           <div class="chat-header">
@@ -9,7 +9,7 @@
             &nbsp;
             <span class="chat-header-time">{{msgBlock.timestamp | date:'shortTime'}}</span>
           </div>
-          <div *ngFor="let msg of msgBlock.msgs; let i = $index; trackFn:'chatTracker'">
+          <div *ngFor="let msg of msgBlock.msgs; trackBy:chatTracker;">
             <message [msg]="msg"></message>
           </div>
         </div>

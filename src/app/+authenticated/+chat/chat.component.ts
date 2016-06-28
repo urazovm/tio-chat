@@ -64,7 +64,6 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
 
   ngAfterViewChecked() {
     if(this.newMessage) {
-
       this.elChatList.scrollTop = this.elChatList.scrollHeight;
     }
     this.newMessage = false;
@@ -102,12 +101,13 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
     this.bFocus = true;
     if (this.screenFlashInterval) {
       clearInterval(this.screenFlashInterval);
+      document.title = 'taran.io';
       this.screenFlashInterval = null;
     }
   }
 
   chatTracker(index, item) {
-    return item._id;
+    return item && item._id;
   }
   
 }
