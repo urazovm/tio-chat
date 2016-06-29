@@ -24,7 +24,7 @@
   </div>
   <div class="users-container">
     <h5>Online:</h5>
-    <div *ngFor="let user of users" class="chat-user">
+    <div *ngFor="let user of users" class="chat-user" [style.color]="userColors.getColorForUser(user)">
       {{user}}
     </div>
   </div>

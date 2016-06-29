@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CurrentUserService } from '../../../shared/current-user';
+import { UserColorService } from '../../../shared/user-color';
 
-const userRegex = /^@[a-zA-Z0-9]+$/i;
+const userRegex = /^@([a-zA-Z0-9]+)[\.\?,!]*$/i;
 
 
 @Component({
@@ -12,7 +13,7 @@ const userRegex = /^@[a-zA-Z0-9]+$/i;
 })
 export class ChatMessage {
     @Input() msg;
-    constructor(private currentUser: CurrentUserService) {
+    constructor(private currentUser: CurrentUserService, public userColors: UserColorService) {
 
     }
 
@@ -21,8 +22,9 @@ export class ChatMessage {
     }
 
     getColor(word) {
-        if (word.search(this.currentUser.user) !== -1) {
-            return 'blue';
+        let result = userRegex.exec(word);
+        if (result) {
+            return this.userColors.getColorForUser(result[1]);
         }
         return 'black';
     }

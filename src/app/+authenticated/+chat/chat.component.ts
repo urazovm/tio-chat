@@ -7,7 +7,8 @@ import { ChatManagerService } from '../../shared/chat-manager';
 import { UserManagerService } from '../../shared/user-manager';
 import { CurrentUserService } from '../../shared/current-user';
 import { ChatPipe } from '../../shared/pipes/chat-message.pipe';
-import { ChatMessage } from './shared/chat-message.component'
+import { ChatMessage } from './shared/chat-message.component';
+import { UserColorService } from '../../shared/user-color';
 
 @Component({
   moduleId: 'taranio',
@@ -28,7 +29,7 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   bFocus: boolean = true;
   screenFlashInterval: any = null;
   constructor(public chatManager: ChatManagerService, public currentUser: CurrentUserService,
-              private userManager: UserManagerService, public element: ElementRef) {
+              private userManager: UserManagerService, public element: ElementRef, public userColors: UserColorService) {
 
   }
 

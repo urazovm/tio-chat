@@ -32,6 +32,9 @@ db.once('open', function callback () {
   http.listen( port, function() {
     console.log('ready on port: ' + port);
   } );
+  setTimeout(()=> {
+    io.to('/').emit('live-reload');
+  },5000);
 });
 
 app.use( compress );

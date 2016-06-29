@@ -18,7 +18,7 @@ export class ChatManagerService {
             }
             this.chatMsgs[chat.roomId] = chat.msgs || [];
             _.each(this.chatObservers[chat.roomId], (obs) => {
-                obs.next(this.chatMsgs[chat.roomId]);
+                obs && obs.next(this.chatMsgs[chat.roomId]);
             });
         });
 
@@ -28,14 +28,14 @@ export class ChatManagerService {
             }
             this.chatMsgs[msg.roomId] = [...this.chatMsgs[msg.roomId], msg];
             _.each(this.chatObservers[msg.roomId], (obs) => {
-                obs.next(this.chatMsgs[msg.roomId]);
+                obs && obs.next(this.chatMsgs[msg.roomId]);
             });
         });
 
         this.socket.on('rooms:init', (rooms) =>{
             this.rooms = rooms;
             _.each(this.roomObservers, (obs) => {
-                obs.next(rooms);
+                obs && obs.next(rooms);
             });
         });
 

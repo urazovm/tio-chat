@@ -5,6 +5,9 @@ export class SocketService {
   private socket:any;
   constructor(private _ngZone: NgZone) {
     this.socket = window["io"].connect();
+    this.socket.on('live-reload', () => {
+      location.reload(true);
+    });
   }
 
   public emit(event: string, params?: any, cb?: any) {

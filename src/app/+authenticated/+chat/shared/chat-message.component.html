@@ -1,10 +1,8 @@
-<div *ngIf="msg.type==='chat'">{{msg.msg}}</div>
-<!--<div *ngIf="msg.type==='chat'">
+<div *ngIf="msg.type==='chat'">
   <span *ngFor="let word of msg.words; let i = $index;"
         [style.color]="getColor(word)"
     >
     {{word}}&nbsp;
   </span>
 </div>
--->
 <div *ngIf="msg.type==='date'" class="message-date">{{msg.timestamp | date:'shortTime'}}</div>
