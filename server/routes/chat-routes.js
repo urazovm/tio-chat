@@ -45,9 +45,7 @@ function addChatRoutes(app, io) {
 
 
       ChatMsgModel.find({roomId: room})
-        .sort({'timestamp': -1})
         .limit(100)
-        .sort({'timestamp': 1})
         .exec()
         .then((docs)=> {
           socket.emit('chat:init', {roomId: room, msgs: docs} )
