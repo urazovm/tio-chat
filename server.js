@@ -33,7 +33,7 @@ db.once('open', function callback () {
     console.log('ready on port: ' + port);
   } );
   setTimeout(()=> {
-    io.to('/').emit('live-reload');
+    io.of('/').emit('live-reload');
   },5000);
 });
 

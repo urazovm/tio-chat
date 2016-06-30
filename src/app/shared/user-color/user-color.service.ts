@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserColorService {
     colorMap: {} = {};
-    colors: any[] = ['blue', 'red','darkgreen'];
+    colors: any[] = ['blue', '#d30d0d','darkgreen', '#a133b4', '#249abe'];
     nextColor = 0;
     constructor() {
 
