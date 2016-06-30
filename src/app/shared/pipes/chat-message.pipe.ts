@@ -35,7 +35,7 @@ export class ChatPipe implements PipeTransform {
       currentChat.msgs.push({type: 'chat', msg: msg.msg, timestamp: currentTimestamp, words: msg.msg.split(' ')});
     });
     if (currentChat) {
-      returnAry.push(currentChat);
+      this._addChat(returnAry, currentChat);
     }
     return returnAry;
   }
