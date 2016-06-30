@@ -26,6 +26,6 @@ export class ChatMessage {
         if (result) {
             return this.userColors.getColorForUser(result[1]);
         }
-        return 'black';
+        return '#5c5c5c';
     }
 }
