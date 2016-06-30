@@ -15,6 +15,7 @@ import { RoomManagerService } from './shared/room-manager/room-manager.service'
 import { ChatManagerService } from './shared/chat-manager';
 import { UserManagerService } from './shared/user-manager';
 import { UserColorService } from './shared/user-color';
+import { SnippetComponent } from './+snippet/snippet.component';
 
 const _ = window['_'];
 
@@ -30,6 +31,7 @@ const _ = window['_'];
 @Routes([
   {path: '/a', component: AuthenticatedComponent},
   {path: '/login', component: LoginComponent},
+  {path: '/snippet/:id', component: SnippetComponent},
   {path: '/', component: AuthenticatedComponent},
   {path: '/**', component: AuthenticatedComponent},
 ])
