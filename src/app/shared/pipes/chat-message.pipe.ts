@@ -43,7 +43,7 @@ export class ChatPipe implements PipeTransform {
     if(currentChat) {
       let bMentionsMe = false;
       _.each(currentChat.msgs, (msg) =>{
-        bMentionsMe = bMentionsMe || msg.search('@' + this.currentUser.user) >= 0;
+        bMentionsMe = bMentionsMe || msg.msg.search('@' + this.currentUser.user) >= 0;
       });
 
       currentChat.mentionsMe = bMentionsMe;
