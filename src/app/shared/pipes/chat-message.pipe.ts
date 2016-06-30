@@ -1,9 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { CurrentUserService } from '../current-user/current-user.service';
 
 const _ =  window['_'];
 const nameSearch = /@[a-zA-Z0-9]/i;
 @Pipe({name: 'chat'})
 export class ChatPipe implements PipeTransform {
+  constructor(private currentUser: CurrentUserService) {
+
+  }
+
   transform(ary: any[]): any[] {
     let lastName = '';
     let returnAry = [];
@@ -38,7 +43,7 @@ export class ChatPipe implements PipeTransform {
     if(currentChat) {
       let bMentionsMe = false;
       _.each(currentChat.msgs, (msg) =>{
-        bMentionsMe = bMentionsMe || nameSearch.test(msg.msg);
+        bMentionsMe = bMentionsMe || msg.search('@' + this.currentUser.user) >= 0;
       });
 
       currentChat.mentionsMe = bMentionsMe;

@@ -3,7 +3,7 @@
     <div class="chat-body">
       <div *ngFor="let msgBlock of msgs | chat; trackBy:chatTracker;">
         <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'"
-             [ngClass]="msgBlock.mentionsMe ? 'notify-message' : ''">
+             [class.notify-message]="msgBlock.mentionsMe">
           <div class="chat-header">
             <span class="chat-header-user">{{msgBlock.user === currentUser.user ? 'You' : msgBlock.user}}</span>
             &nbsp;

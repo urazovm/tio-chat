@@ -45,10 +45,11 @@ function addChatRoutes(app, io) {
 
 
       ChatMsgModel.find({roomId: room})
-     //   .limit(100)
+        .sort({'timestamp': -1})
+        .limit(100)
         .exec()
         .then((docs)=> {
-          socket.emit('chat:init', {roomId: room, msgs: docs} )
+          socket.emit('chat:init', {roomId: room, msgs: docs.reverse()} )
         });
       // TODO: should this be seperate from chat:join?
       let roomUsers = getUsersForRoom(room);
