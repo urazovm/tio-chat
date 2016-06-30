@@ -45,7 +45,7 @@ function addChatRoutes(app, io) {
 
 
       ChatMsgModel.find({roomId: room})
-        .limit(100)
+     //   .limit(100)
         .exec()
         .then((docs)=> {
           socket.emit('chat:init', {roomId: room, msgs: docs} )
