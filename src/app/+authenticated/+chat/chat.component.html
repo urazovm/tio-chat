@@ -1,6 +1,6 @@
 <div class="chat-component" (window:blur)="blur()" (window:focus)="focus()">
   <div class="chat-container">
-    <div class="chat-body">
+    <div class="chat-body" (window:resize)="resized()">
       <div *ngFor="let msgBlock of msgs | chat; trackBy:chatTracker;">
         <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'"
              [class.notify-message]="msgBlock.mentionsMe">

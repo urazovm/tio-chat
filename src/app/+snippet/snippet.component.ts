@@ -4,7 +4,7 @@ import {EditorComponent} from './shared/editor.component'
 
 @Component({
     selector: 'editor',
-    templateUrl: `<editor></editor>`,
+    templateUrl: `<editor (value)="id"></editor>`,
     directives: [EditorComponent]
 })
 

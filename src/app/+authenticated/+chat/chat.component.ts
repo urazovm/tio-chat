@@ -107,6 +107,10 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
     }
   }
 
+  resized() {
+    this.elChatList.scrollTop = this.elChatList.scrollHeight;
+  }
+
   chatTracker(index, item) {
     return item && item._id;
   }

@@ -1,8 +1,10 @@
 <div *ngIf="msg.type==='chat'">
+
   <span *ngFor="let word of msg.words; let i = $index;"
-        [style.color]="getColor(word)"
-    >
-    {{word}}&nbsp;
+        [ngSwitch]="getWordType(word)">
+    <span *ngSwitchWhen="'user'" [style.color]="getColor(word)">{{word}}</span>
+    <a target="_blank" *ngSwitchWhen="'link'" href="{{getLinkHref(word)}}" [style.color]="getColor(word)">{{word}}</a>
+    <span *ngSwitchDefault>{{word || '&nbsp;' }}</span>
   </span>
 </div>
 <div *ngIf="msg.type==='date'" class="message-date">{{msg.timestamp | date:'shortTime'}}</div>
