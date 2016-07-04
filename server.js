@@ -9,8 +9,6 @@ const mongoose = require('mongoose');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 
-const salt = process.env.salt_key || 'salty';
-
 mongoose.Promise = require('bluebird');
 
 var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/urf3';
@@ -26,6 +24,7 @@ if (redisUrl) {
 }
 mongoose.connect(dbURI);
 
+const salt = bcrypt.genSaltSync(10);
 
 var db = mongoose.connection;
 

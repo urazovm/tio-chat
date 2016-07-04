@@ -15,7 +15,7 @@ const jwtSecret = process.env.jwtSecret || 'jwt-devel';
 
 //TODO: this should probably go!
 const recaptchaKey = process.env.recaptcha_key || '';
-const salt = process.env.salt_key || 'salty';
+const salt = bcrypt.genSaltSync(10);
 
 const UserModel = require('../db/user').User;
 
