@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const expressJwt = require('express-jwt');
 const socketJwt = require('socketio-jwt');
+const bcrypt = require('bcrypt');
 
 const bb = require('bluebird');
 const request = bb.promisify(require('request'));
@@ -14,18 +15,49 @@ const jwtSecret = process.env.jwtSecret || 'jwt-devel';
 
 //TODO: this should probably go!
 const recaptchaKey = process.env.recaptcha_key || '';
+const salt = process.env.salt_key || 'salty';
 
 const UserModel = require('../db/user').User;
 
 function createUser(user ) {
-  const newUser = new UserModel({
-    user: user.user,
-    pass: user.pass
-  });
-  return newUser.save()
-    .then(() => {
-      return true;
+
+  return hash(user.pass)
+    .then((hashPass) => {
+      const newUser = new UserModel({
+        user: user.user,
+        passHash: hashPass
+      });
+      return newUser.save()
+        .then(() => {
+          return true;
+        });
     });
+}
+
+function hash(pass) {
+  return new bb((resolve, reject) => {
+    bcrypt.hash(pass, salt, (err, hashedPass)=> {
+      if(err) {
+        console.log('hasing failed:' + err);
+        reject(err);
+      } else {
+        resolve(hashedPass);
+      }
+    });
+  });
+}
+
+function compare(pass, hash) {
+  return new bb((resolve, reject) => {
+    bcrypt.compare(pass,hash, (err, result) => {
+      if(err) {
+        console.log(err);
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  })
 }
 
 function isValidUser(user) {
@@ -48,8 +80,7 @@ function isValidUser(user) {
           return true;
         }
       } else {
-        console.log('user exists');
-        return docs[0].pass === user.pass;
+        return compare(docs[0].passHash, user.pass);
       }
     })
     .catch(function (err) {

@@ -1,11 +1,16 @@
 'use strict';
-var express = require('express');
-var app = express();
-var http = require( 'http' ).Server( app );
-var io = require( 'socket.io' )( http );
-var compress = require('compression')();
-var path    = require("path");
-var mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const http = require( 'http' ).Server( app );
+const io = require( 'socket.io' )( http );
+const compress = require('compression')();
+const path    = require("path");
+const mongoose = require('mongoose');
+const _ = require('lodash');
+const bcrypt = require('bcrypt');
+
+const salt = process.env.salt_key || 'salty';
+
 mongoose.Promise = require('bluebird');
 
 var dbURI = process.env.MONGODB_URI || 'mongodb://localhost/urf3';
@@ -35,6 +40,20 @@ db.once('open', function callback () {
   setTimeout(()=> {
     io.of('/').emit('live-reload');
   },5000);
+
+  //1 time maintenance.
+  const User = require('./server/db/user').User;
+  User.find({}).exec()
+    .then((docs)=> {
+      _.each(docs, (user)=> {
+        if(!user.passHash) {
+          bcrypt.hash(user.pass, salt, (err, hashedPass)=> {
+            user.passHash = hashedPass;
+            User.update({_id: user._id}, user);
+          });
+        }
+      });
+    });
 });
 
 app.use( compress );
