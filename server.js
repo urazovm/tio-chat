@@ -41,6 +41,12 @@ app.use( compress );
 app.use( express.static( __dirname + '/dist' ) );
 
 app.set( 'case sensitive routing', false );
+app.get('*',function(req,res,next){
+  if(req.headers['x-forwarded-proto']!='https')
+    res.redirect('https:/taran.io'+req.url);
+  else
+    next(); /* Continue to other routes if we're not redirecting */
+})
 
 app.get( /^\/(?!node_modules).*/, function( req, res ) {
   res.sendFile(path.join(__dirname+'/dist/index.html'));
