@@ -80,7 +80,7 @@ function isValidUser(user) {
           return true;
         }
       } else {
-        return compare(docs[0].passHash, user.pass);
+        return compare(user.pass, docs[0].passHash);
       }
     })
     .catch(function (err) {
