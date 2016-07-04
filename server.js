@@ -46,10 +46,16 @@ db.once('open', function callback () {
   User.find({}).exec()
     .then((docs)=> {
       _.each(docs, (user)=> {
+        console.log('updating ' + user.user);
         if(!user.passHash) {
+          console.log('hasing');
           bcrypt.hash(user.pass, salt, (err, hashedPass)=> {
+            console.log(user.user + ' hasing complete');
             user.passHash = hashedPass;
-            User.update({_id: user._id}, user);
+            User.update({_id: user._id}, user)
+              .then(()=> {
+                console.log('save complete for ' + user.user);
+              });
           });
         }
       });
