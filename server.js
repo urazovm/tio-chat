@@ -48,9 +48,12 @@ db.once('open', function callback () {
       _.each(docs, (user)=> {
         console.log('updating ' + user.user);
         if(!user.passHash) {
-          console.log('hasing');
+          console.log('hashing');
           bcrypt.hash(user.pass, salt, (err, hashedPass)=> {
-            console.log(user.user + ' hasing complete');
+            if(err) {
+              console.log(err);
+            }
+            console.log(user.user + ' hashing complete - ' + hashedPass);
             user.passHash = hashedPass;
             User.update({_id: user._id}, user)
               .then(()=> {
