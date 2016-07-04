@@ -1,1 +1,1 @@
-export * from './user-manager.service.ts';
+export * from './user-manager.service';

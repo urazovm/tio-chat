@@ -1,144 +1,94 @@
-var ts = require('gulp-typescript');
-var gulp = require('gulp');
-var printFilenames = require( 'gulp-print' );
-var inlineNg2Template = require('gulp-inline-ng2-template');
-var htmlMinifier= require('html-minifier');
-var uglify = require('gulp-uglify');
-var concat = require( 'gulp-concat' );
-var through = require('through2');
-var Builder = require('systemjs-builder');
-var runSequence = require('run-sequence');
+const ts = require('gulp-typescript');
+const gulp = require('gulp');
+const printFilenames = require( 'gulp-print' );
+const inlineNg2Template = require('gulp-inline-ng2-template');
+const htmlMinifier= require('html-minifier');
+const uglify = require('gulp-uglify');
+const concat = require( 'gulp-concat' );
+const through = require('through2');
+const Builder = require('systemjs-builder');
+const runSequence = require('run-sequence');
 
-var globs = {
-  deps: [
-    'node_modules/core-js/client/shim.min.js',
-    'node_modules/systemjs/dist/system-polyfill.js',
-    'node_modules/systemjs/dist/system.js',
-    'node_modules/rxjs/bundles/Rx.js',
-    'node_modules/zone.js/dist/zone.js',
-    'node_modules/reflect-metadata/Reflect.js',
-    'node_modules/lodash/lodash.min.js',
-  ],
-  angular: [
-    'node_modules/@angular/**',
-  ],
-  systemjs: [
-    'node_modules/systemjs/dist/*.js',
-  ],
-  'angularMaterials': [
-    'node_modules/@angular2-material/**'
-  ],
-  angular2Jwt: [
-    'node_modules/angular2-jwt/**'
-  ],
-  rxJs: [
-    'node_modules/rxjs/**'
-  ],
-  main: [
+const tscConfig = require('./tsconfig.json');
+const rollup = require('gulp-rollup');
+const nodeResolve = require('rollup-plugin-node-resolve');
+const includePaths = require('rollup-plugin-includepaths');
+const commonjs = require('rollup-plugin-commonjs');
+const babel = require('rollup-plugin-babel');
 
-  ],
-  html: [
-    'index.html'
-  ],
-  assets: [
-    'assets/**'
-  ]
-};
 
-function minifyTemplate(ext, file) {
-  return htmlMinifier.minify(file, {
-    collapseWhitespace: true,
-    caseSensitive: true,
-    removeComments: true,
-    removeRedundantAttributes: true
-  });
-}
-
-var tsProject = ts.createProject('tsconfig.json');
-
-gulp.task('js', function() {
+gulp.task('js-with-rollup', ()=>{
   return gulp.src(['src/**/*.ts','!src/**/*.spec.ts'])
-    .pipe(printFilenames())
-    .pipe(inlineNg2Template({useRelativePaths: true, templateProcessor: minifyTemplate}))
-    .pipe(ts(tsProject))
-    .pipe(gulp.dest('tmp'));
-});
+    .pipe(ts(tscConfig.compilerOptions))
+    .pipe(gulp.dest('dist'))
+    .pipe(rollup(
+      {
+        plugins: [
+          nodeResolve({
+            // use "jsnext:main" if possible
+            // – see https://github.com/rollup/rollup/wiki/jsnext:main
+            jsnext: true,  // Default: false
 
-gulp.task('js-node', function() {
+            // use "main" field or index.js, even if it's not an ES6 module
+            // (needs to be converted from CommonJS to ES6
+            // – see https://github.com/rollup/rollup-plugin-commonjs
+            main: true,  // Default: true
 
-  gulp.src('./src/system-config.js')
-    .pipe(gulp.dest('tmp'));
+            // if there's something your bundle requires that you DON'T
+            // want to include, add it to 'skip'. Local and relative imports
+            // can be skipped by giving the full filepath. E.g.,
+            // `path.resolve('src/relative-dependency.js')`
+            skip: [],
 
-  gulp.src(globs.angularMaterials)
-    //.pipe(gulp.dest('tmp/node_modules/@angular2-material'))
-    .pipe(gulp.dest('dist/node_modules/@angular2-material'));
+            // some package.json files have a `browser` field which
+            // specifies alternative files to load for people bundling
+            // for the browser. If that's you, use this option, otherwise
+            // pkg.browser will be ignored
+            browser: true,  // Default: false
 
-  gulp.src(globs.rxJs)
-    //.pipe(gulp.dest('tmp/node_modules/rxjs'))
-    .pipe(gulp.dest('dist/node_modules/rxjs'));
+            // not all files you want to resolve are .js files
+            extensions: [ '.js', '.json' ],  // Default: ['.js']
 
-  gulp.src(globs.systemjs)
-    .pipe(gulp.dest('dist/node_modules/systemjs/dist'));
+            // whether to prefer built-in modules (e.g. `fs`, `path`) or
+            // local ones with the same names
+            preferBuiltins: false  // Default: true
 
-  gulp.src(globs.angular2Jwt)
-    //.pipe(gulp.dest('tmp/node_modules/angualr2-jwt'))
-    .pipe(gulp.dest('dist/node_modules/angular2-jwt'));
+          }),
+          includePaths({
+            include: {},
+            paths: ['./src/', 'dist'],
+            external: [],
+            extensions: ['.js', '.json', '.html']
+          }),
+          commonjs({
+            // non-CommonJS modules will be ignored, but you can also
+            // specifically include/exclude files
+            //include: 'node_modules/**',  // Default: undefined
+            exclude: [ 'node_modules/@angular/**/esm/**', 'node_modules/@angular/core/esm/index.js' ],  // Default: undefined
 
+            // search for files other than .js files (must already
+            // be transpiled by a previous plugin!)
+           // extensions: ['.js', '.json'],  // Default: [ '.js' ]
 
-  gulp.src(globs.assets)
-    //.pipe(gulp.dest('tmp/assets'))
-    .pipe(gulp.dest('dist/assets'));
+            //// if true then uses of `global` won't be dealt with by this plugin
+            //ignoreGlobal: false,  // Default: false
 
-  return gulp.src(globs.angular)
-    //.pipe(gulp.dest('tmp/node_modules/@angular'))
-    .pipe(gulp.dest('dist/node_modules/@angular'));
-});
+            // if false then skip sourceMap generation for CommonJS modules
+            sourceMap: false,  // Default: true
 
-gulp.task('js-deps', function() {
-  gulp.src(globs.deps)
-    .pipe(printFilenames())
-    .pipe(concat('deps.js'))
-    .pipe(uglify())
+            // explicitly specify unresolvable named exports
+            // (see below for more details)
+            namedExports: { 'node_modules/@angular/core/esm/index.js': ['default'] }  // Default: undefined
+          })
+        ],
+        entry: 'dist/main.js',
+        allowRealFiles: true,
+        format: 'iife',
+      },
+      babel({
+        "presets": [ "es2015-rollup" ]
+      })
+    ))
     .pipe(gulp.dest('dist'));
-/*
-  gulp.src(globs.angular)
-    .pipe(concat('deps-angular.js'))
-    .pipe(gulp.dest('dist'));*/
 });
 
-gulp.task('html', function() {
-  return gulp.src(['src/index.html', 'src/system-config.js'])
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('system', function(cb) {
-  var builder = new Builder('./tmp', './tmp/system-config.js');
-  builder.buildStatic('./tmp/app.js', "dist/app.min.js", {sourceMaps: false, minify: false, sfx: true})
-    .then(function () {
-      console.log('here');
-      cb();
-    })
-    .catch(function(err) {
-      console.log(err);
-      cb(err);
-    });
-});
-
-gulp.task('sys', function(cb) {
-  var builder = new Builder();
-  builder.loadConfig('./tmp/system-config.js')
-    .then( function() {
-      builder.buildStatic('./tmp/app.js', "dist/app.min.js", {sourceMaps: false, minify: true})
-        .then(function () {
-
-        })
-        .catch(function(err) {
-          console.log(err);
-          cb(err);
-        });
-    });
-});
-
-gulp.task('build', function(cb) {
-  runSequence(['js','js-node','js-deps','html'], 'system', cb);
-})
