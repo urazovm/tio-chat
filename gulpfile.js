@@ -2,14 +2,6 @@
 
 const ts = require('gulp-typescript');
 const gulp = require('gulp');
-const printFilenames = require( 'gulp-print' );
-const inlineNg2Template = require('gulp-inline-ng2-template');
-const htmlMinifier= require('html-minifier');
-const uglify = require('gulp-uglify');
-const concat = require( 'gulp-concat' );
-const through = require('through2');
-const Builder = require('systemjs-builder');
-const runSequence = require('run-sequence');
 
 const tscConfig = require('./tsconfig.json');
 const rollup = require('gulp-rollup');
@@ -75,7 +67,7 @@ gulp.task('js-with-rollup', ()=>{
             external: [],
             extensions: ['.js', '.json', '.html']
           }),
-        
+
           commonjs({
             // non-CommonJS modules will be ignored, but you can also
             // specifically include/exclude files
