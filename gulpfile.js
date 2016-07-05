@@ -1,3 +1,5 @@
+'use strict';
+
 const ts = require('gulp-typescript');
 const gulp = require('gulp');
 const printFilenames = require( 'gulp-print' );
@@ -16,6 +18,18 @@ const includePaths = require('rollup-plugin-includepaths');
 const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
 
+class RollupNG2 {
+  constructor(options){
+    this.options = options;
+  }
+  resolveId(id, from){
+    if (id.startsWith('rxjs/')){
+      return `${__dirname}/node_modules/rxjs-es/${id.replace('rxjs/', '')}.js`;
+    }
+  }
+}
+
+const rollupNG2 = (config) => new RollupNG2(config);
 
 gulp.task('js-with-rollup', ()=>{
   return gulp.src(['src/**/*.ts','!src/**/*.spec.ts'])
@@ -24,6 +38,7 @@ gulp.task('js-with-rollup', ()=>{
     .pipe(rollup(
       {
         plugins: [
+          rollupNG2(),
           nodeResolve({
             // use "jsnext:main" if possible
             // – see https://github.com/rollup/rollup/wiki/jsnext:main
@@ -38,7 +53,7 @@ gulp.task('js-with-rollup', ()=>{
             // want to include, add it to 'skip'. Local and relative imports
             // can be skipped by giving the full filepath. E.g.,
             // `path.resolve('src/relative-dependency.js')`
-            skip: [],
+            skip: ['node_modules/symbol-observable/index.js'],
 
             // some package.json files have a `browser` field which
             // specifies alternative files to load for people bundling
@@ -60,11 +75,12 @@ gulp.task('js-with-rollup', ()=>{
             external: [],
             extensions: ['.js', '.json', '.html']
           }),
+        
           commonjs({
             // non-CommonJS modules will be ignored, but you can also
             // specifically include/exclude files
-            //include: 'node_modules/**',  // Default: undefined
-            exclude: [ 'node_modules/@angular/**/esm/**', 'node_modules/@angular/core/esm/index.js' ],  // Default: undefined
+            include: 'node_modules/**',  // Default: undefined
+            exclude: [ 'node_modules/rxjs-es/**', 'node_modules/@angular/**/esm/**' ],  // Default: undefined
 
             // search for files other than .js files (must already
             // be transpiled by a previous plugin!)
@@ -78,16 +94,13 @@ gulp.task('js-with-rollup', ()=>{
 
             // explicitly specify unresolvable named exports
             // (see below for more details)
-            namedExports: { 'node_modules/@angular/core/esm/index.js': ['default'] }  // Default: undefined
+            //namedExports: { 'node_modules/@angular/core/esm/index.js': ['default'] }  // Default: undefined
           })
         ],
         entry: 'dist/main.js',
         allowRealFiles: true,
         format: 'iife',
-      },
-      babel({
-        "presets": [ "es2015-rollup" ]
-      })
+      }
     ))
     .pipe(gulp.dest('dist'));
 });
