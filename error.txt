@@ -1,0 +1,51 @@
+[22:26:40] Using gulpfile C:\src\taranio-chat\gulpfile.js
+[22:26:40] Starting 'js-with-rollup'...
+C:/src/taranio-chat/node_modules/@angular/forms/src/directives/ng_model.d.ts(8,32): error TS2305: Module '"C:/src/taranio-chat/node_modules/@angular/core/index"' has no exported member 'SimpleChanges'.
+C:/src/taranio-chat/node_modules/@angular/forms/src/directives/reactive_directives/form_control_directive.d.ts(8,21): error TS2305: Module '"C:/src/taranio-chat/node_modules/@angular/core/index"' has no exported member 'SimpleChanges'.
+C:/src/taranio-chat/node_modules/@angular/forms/src/directives/reactive_directives/form_control_name.d.ts(8,32): error TS2305: Module '"C:/src/taranio-chat/node_modules/@angular/core/index"' has no exported member 'SimpleChanges'.
+C:/src/taranio-chat/node_modules/@angular/forms/src/directives/reactive_directives/form_group_directive.d.ts(8,21): error TS2305: Module '"C:/src/taranio-chat/node_modules/@angular/core/index"' has no exported member 'SimpleChanges'.
+src\app\spoonado.component.ts(12,10): error TS2305: Module '"C:/src/taranio-chat/node_modules/@angular2-material/radio/radio"' has no exported member 'MdRadioDispatcher'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(8,14): error TS2300: Duplicate identifier 'PropertyKey'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(11,5): error TS2300: Duplicate identifier 'done'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(12,5): error TS2300: Duplicate identifier 'value'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(250,5): error TS2300: Duplicate identifier 'EPSILON'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(285,5): error TS2300: Duplicate identifier 'MAX_SAFE_INTEGER'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(292,5): error TS2300: Duplicate identifier 'MIN_SAFE_INTEGER'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(348,5): error TS2300: Duplicate identifier 'flags'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(500,5): error TS2300: Duplicate identifier 'prototype'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(563,5): error TS2300: Duplicate identifier 'size'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(572,5): error TS2300: Duplicate identifier 'prototype'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(583,5): error TS2300: Duplicate identifier 'size'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(592,5): error TS2300: Duplicate identifier 'prototype'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(607,5): error TS2300: Duplicate identifier 'prototype'.
+C:/src/taranio-chat/typings/browser/ambient/es6-shim/index.d.ts(621,5): error TS2300: Duplicate identifier 'prototype'.
+__lib.d.ts(17,14): error TS2300: Duplicate identifier 'PropertyKey'.
+__lib.d.ts(237,5): error TS2300: Duplicate identifier 'EPSILON'.
+__lib.d.ts(272,5): error TS2300: Duplicate identifier 'MAX_SAFE_INTEGER'.
+__lib.d.ts(279,5): error TS2300: Duplicate identifier 'MIN_SAFE_INTEGER'.
+__lib.d.ts(565,5): error TS2300: Duplicate identifier 'done'.
+__lib.d.ts(566,5): error TS2300: Duplicate identifier 'value'.
+__lib.d.ts(795,5): error TS2300: Duplicate identifier 'flags'.
+__lib.d.ts(823,5): error TS2300: Duplicate identifier 'size'.
+__lib.d.ts(833,5): error TS2300: Duplicate identifier 'prototype'.
+__lib.d.ts(849,5): error TS2300: Duplicate identifier 'prototype'.
+__lib.d.ts(861,5): error TS2300: Duplicate identifier 'size'.
+__lib.d.ts(871,5): error TS2300: Duplicate identifier 'prototype'.
+__lib.d.ts(886,5): error TS2300: Duplicate identifier 'prototype'.
+__lib.d.ts(1282,5): error TS2300: Duplicate identifier 'prototype'.
+[22:26:42] TypeScript: 33 semantic errors
+[22:26:42] TypeScript: emit succeeded (with errors)
+
+events.js:141
+      throw er; // Unhandled 'error' event
+      ^
+Error: Module C:\src\taranio-chat/node_modules/@angular/core/esm/index.js does not export default (imported by C:\src\taranio-chat\node_modules\@angular2-material\toolbar\toolbar.js)
+    at Module.trace (C:\src\taranio-chat\node_modules\gulp-rollup\node_modules\rollup\dist\rollup.js:6221:29)
+    at C:\src\taranio-chat\node_modules\gulp-rollup\node_modules\rollup\dist\rollup.js:5761:34
+    at Array.forEach (native)
+    at C:\src\taranio-chat\node_modules\gulp-rollup\node_modules\rollup\dist\rollup.js:5758:24
+    at Array.forEach (native)
+    at Module.bindAliases (C:\src\taranio-chat\node_modules\gulp-rollup\node_modules\rollup\dist\rollup.js:5747:28)
+    at C:\src\taranio-chat\node_modules\gulp-rollup\node_modules\rollup\dist\rollup.js:7260:62
+    at Array.forEach (native)
+    at C:\src\taranio-chat\node_modules\gulp-rollup\node_modules\rollup\dist\rollup.js:7260:19
