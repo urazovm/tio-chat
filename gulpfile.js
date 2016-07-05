@@ -9,6 +9,8 @@ const nodeResolve = require('rollup-plugin-node-resolve');
 const includePaths = require('rollup-plugin-includepaths');
 const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
+var inlineNg2Template = require('gulp-inline-ng2-template');
+var htmlMinifier= require('html-minifier');
 
 class RollupNG2 {
   constructor(options){
@@ -23,10 +25,20 @@ class RollupNG2 {
 
 const rollupNG2 = (config) => new RollupNG2(config);
 
+function minifyTemplate(ext, file) {
+  return htmlMinifier.minify(file, {
+    collapseWhitespace: true,
+    caseSensitive: true,
+    removeComments: true,
+    removeRedundantAttributes: true
+  });
+}
+
 gulp.task('js-with-rollup', ()=>{
   return gulp.src(['src/**/*.ts','!src/**/*.spec.ts'])
+    .pipe(inlineNg2Template({useRelativePaths: true, templateProcessor: minifyTemplate}))
     .pipe(ts(tscConfig.compilerOptions))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist')) //wip - this shouldn't be here - but it's nice to see the files for debug purposes atm though
     .pipe(rollup(
       {
         plugins: [
