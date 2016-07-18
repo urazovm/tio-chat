@@ -21,8 +21,11 @@ export class CodeEditorComponent implements OnInit {
       {
         lineNumbers: true,
         readOnly: true,
-        mode: {name: "javascript", globalVars: true
-        }
+        mode: {name: "javascript", globalVars: true},
+        width: '100%',
+        minHeight: 0,
+        viewportMargin: Infinity,
+        textWrapping: true,
       });
     this.editor.getDoc().setValue(this.code.trim());
   }

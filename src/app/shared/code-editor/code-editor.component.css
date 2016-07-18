@@ -1,0 +1,12 @@
+:host >>> .CodeMirror {
+  border: 1px solid #eee;
+  height: auto;
+}
+
+:host >>> .CodeMirror pre {
+  width: 0px;
+}
+
+:host >>> .CodeMirror-sizer {
+  min-width: 0px !important;
+}
