@@ -94,6 +94,11 @@
   text-overflow: ellipsis;
 }
 
+.chat-textbox {
+  resize: none;
+  width: 100%;
+}
+
 .notify-message {
   border: 1px solid darkorange;
 }

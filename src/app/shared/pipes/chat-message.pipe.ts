@@ -32,7 +32,7 @@ export class ChatPipe implements PipeTransform {
         currentChat.msgs.push({type: 'date', msg: '', timestamp: currentTimestamp});
         lastTimestamp = currentTimestamp;
       }
-      currentChat.msgs.push({type: 'chat', msg: msg.msg, timestamp: currentTimestamp, words: msg.msg.split(' ')});
+      currentChat.msgs.push({type: 'chat', msg: msg.msg, timestamp: currentTimestamp});
     });
     if (currentChat) {
       this._addChat(returnAry, currentChat);

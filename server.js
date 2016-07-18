@@ -65,12 +65,15 @@ db.once('open', function callback () {
 });
 
 app.use( compress );
-app.get('*',function(req,res,next){
-  if(req.headers['x-forwarded-proto']!='https')
-    res.redirect('https:/taran.io'+req.url);
-  else
-    next(); /* Continue to other routes if we're not redirecting */
-});
+if (!process.env.local_host) {
+  app.get('*',function(req,res,next){
+    if(req.headers['x-forwarded-proto']!='https')
+      res.redirect('https:/taran.io'+req.url);
+    else
+      next(); /* Continue to other routes if we're not redirecting */
+  });
+}
+
 app.use( express.static( __dirname + '/dist' ) );
 
 app.set( 'case sensitive routing', false );

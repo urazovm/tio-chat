@@ -42,6 +42,9 @@ var globs = {
   ],
   assets: [
     'assets/**'
+  ],
+  codeMirror: [
+    'node_modules/codemirror/**/*.js', 'node_modules/codemirror/**/*.css'
   ]
 };
 
@@ -72,6 +75,9 @@ gulp.task('js-node', function() {
   gulp.src(globs.angularMaterials)
     //.pipe(gulp.dest('tmp/node_modules/@angular2-material'))
     .pipe(gulp.dest('dist/node_modules/@angular2-material'));
+
+  gulp.src(globs.codeMirror)
+    .pipe(gulp.dest('dist/node_modules/codemirror'));
 
   gulp.src(globs.rxJs)
     //.pipe(gulp.dest('tmp/node_modules/rxjs'))
