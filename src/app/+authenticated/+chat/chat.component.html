@@ -16,10 +16,8 @@
       </div>
     </div>
     <div class="message-box">
-      <textarea class="chat-textbox" dividerColor="accent" type="text" placeholder="message"
-                (keyup.enter)="sendMessage($event.target)">
-
-      </textarea>
+      <textarea class="chat-textbox" placeholder="message"
+                (keyup.enter)="sendMessage($event.target)"></textarea>
     </div>
   </div>
   <div class="users-container">

@@ -1,8 +1,10 @@
 <div *ngIf="msg.type==='chat'">
-  <span *ngFor="let word of msg.words; let i = $index;"
+  <span *ngFor="let word of words; let i = $index; trackBy:msgTracker;"
         [ngSwitch]="word.type">
     <span *ngSwitchWhen="'user'" [style.color]="getColor(word.span)">{{word.span}}</span>
     <a target="_blank" *ngSwitchWhen="'link'" href="{{getLinkHref(word.span)}}">{{word.span}}</a>
+    <br *ngSwitchWhen="'newline'" />
+    <code-editor *ngSwitchWhen="'code'" [code]="word.span"></code-editor>
     <span *ngSwitchDefault>{{word.span || '&nbsp;' }}</span>
   </span>
 </div>

@@ -105,6 +105,9 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
       document.title = 'taran.io';
       this.screenFlashInterval = null;
     }
+    setTimeout(()=>{
+      this.element.nativeElement.querySelector('.chat-textbox').focus();
+    },50)
   }
 
   resized() {
@@ -114,5 +117,5 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   chatTracker(index, item) {
     return item && item._id;
   }
-  
+
 }
