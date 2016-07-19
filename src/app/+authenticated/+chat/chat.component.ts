@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef, Input} from '@angular/core';
 import { Routes, Router, OnActivate, RouteSegment, RouteTree, ROUTER_DIRECTIVES } from '@angular/router';
 import { MdCard } from '@angular2-material/card';
 import { MdInput } from '@angular2-material/input';
@@ -28,12 +28,16 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   elChatList: any;
   bFocus: boolean = true;
   screenFlashInterval: any = null;
+  @Input() roomId: any;
   constructor(public chatManager: ChatManagerService, public currentUser: CurrentUserService,
               private userManager: UserManagerService, public element: ElementRef, public userColors: UserColorService) {
 
   }
 
   ngOnInit() {
+    if(this.roomId) {
+      this.id = this.roomId;
+    }
     this.elChatList = this.element.nativeElement.querySelector('.chat-body');
 
     this.roomSubscription = this.chatManager.joinRoom(this.id)
@@ -71,7 +75,11 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   }
 
   routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) {
-    this.id = curr.parameters['id'] || 'general';
+    if (!this.roomId) {
+      this.id = curr.parameters['id'] || 'general';
+    } else {
+      this.id = this.roomId;
+    }
   }
 
   sendMessage(target) {

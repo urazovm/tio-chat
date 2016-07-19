@@ -5,6 +5,7 @@ import { ProfileComponent } from './+profile';
 import { CurrentUserService } from '../shared/current-user/current-user.service';
 import { SocketService } from '../shared/socket/socket.service';
 import { NewChatComponent } from './+new-chat';
+import { TripComponent } from './+trip/trip.component';
 
 let authenticatedJwt = '';
 
@@ -19,6 +20,7 @@ let authenticatedJwt = '';
   {path: '/chat/:id', component: ChatComponent},
   {path: '/new', component: NewChatComponent},
   {path: '/profile', component: ProfileComponent},
+  {path: '/trip', component: TripComponent},
   {path: '/', component: ChatComponent},
   {path: '/chat', component: ChatComponent},
 

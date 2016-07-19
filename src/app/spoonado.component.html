@@ -13,6 +13,12 @@
         </button>
       </md-list-item>
       <md-divider></md-divider>
+      <md-list-item *ngIf="currentUser.user">
+        <button md-button (click)="navigate('a/trip')">
+          Current Hike
+        </button>
+      </md-list-item>
+      <md-divider></md-divider>
       <h3 md-subheader>Chat Rooms</h3>
       <md-list-item *ngIf="currentUser.user">
         <button md-button (click)="navigate('a/chat/general')">
