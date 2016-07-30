@@ -40,28 +40,6 @@ db.once('open', function callback () {
     io.of('/').emit('live-reload');
   },5000);
 
-  //1 time maintenance.
-  const User = require('./server/db/user').User;
-  User.find({}).exec()
-    .then((docs)=> {
-      _.each(docs, (user)=> {
-        console.log('updating ' + user.user);
-        if(!user.passHash) {
-          console.log('hashing');
-          bcrypt.hash(user.pass, salt, (err, hashedPass)=> {
-            if(err) {
-              console.log(err);
-            }
-            console.log(user.user + ' hashing complete - ' + hashedPass);
-            user.passHash = hashedPass;
-            User.update({_id: user._id}, user)
-              .then(()=> {
-                console.log('save complete for ' + user.user);
-              });
-          });
-        }
-      });
-    });
 });
 
 app.use( compress );
@@ -78,13 +56,12 @@ app.use( express.static( __dirname + '/dist' ) );
 
 app.set( 'case sensitive routing', false );
 
-
-app.get( /^\/(?!node_modules).*/, function( req, res ) {
+//seems like there should be a better solution here...
+app.get( /^\/(?!node_modules|image-test).*/, function( req, res ) {
   res.sendFile(path.join(__dirname+'/dist/index.html'));
 } );
 
 require('./server/routes/auth').createAuthRoutes(app, io, mongoose);
 require('./server/routes/chat-routes').addChatRoutes(app, io);
-
-
+require('./server/routes/image-test').setupImageRoutes(app);
 

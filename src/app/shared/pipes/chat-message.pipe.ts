@@ -47,7 +47,7 @@ export class ChatPipe implements PipeTransform {
       });
 
       currentChat.mentionsMe = bMentionsMe;
-      currentChat._id += currentChat.msgs.length;
+      //currentChat._id += currentChat.msgs.length;
       returnAry.push(currentChat);
     }
   }

@@ -1,0 +1,15 @@
+.preview {
+
+}
+
+.preview-image {
+  max-width: 100%;
+}
+
+.toggle-nsfw {
+  cursor: pointer;
+}
+
+.toggle-nsfw:hover {
+  color: darkorange;
+}

@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {CORE_DIRECTIVES} from '@angular/common';
 import { CurrentUserService } from '../../../shared/current-user';
 import { UserColorService } from '../../../shared/user-color';
 import { CodeEditorComponent } from '../../../shared/code-editor/code-editor.component';
+import { PreviewComponent } from './preview/preview.component';
 
 
 //const userRegex = /^@([a-zA-Z0-9]+)[\.\?,!]*$/i;
@@ -19,10 +20,11 @@ declare var _: any;
     selector: 'message',
     templateUrl: 'chat-message.component.html',
     styleUrls: ['chat-message.component.css'],
-    directives: [CORE_DIRECTIVES, CodeEditorComponent],
+    directives: [CORE_DIRECTIVES, CodeEditorComponent, PreviewComponent],
 })
 export class ChatMessage {
     @Input() msg;
+    @Output() rendered = new EventEmitter();
     words: any[] = [];
     constructor(private currentUser: CurrentUserService, public userColors: UserColorService) {
 
@@ -33,6 +35,9 @@ export class ChatMessage {
 
     }
 
+    childRendered(params) {
+      this.rendered.emit(params);
+    }
     _parseMessage() {
         let parsedWords = [{span: this.msg.msg.replace(/\n$/, ''), type: 'any'}];
         parsedWords = this._parseWords(parsedWords, codeRegex, 'code');

@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   users: any[] = [];
   roomSubscription: any;
   userSubscription: any;
+  shouldScroll: boolean = true;
   newMessage: boolean = false;
   elChatList: any;
   bFocus: boolean = true;
@@ -43,9 +44,7 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
     this.roomSubscription = this.chatManager.joinRoom(this.id)
       .subscribe((msgs) => {
         this.msgs = msgs;
-        if(this.elChatList.scrollTop + this.elChatList.clientHeight >= this.elChatList.scrollHeight-10) {
-          this.newMessage = true;
-        }
+        this.newMessage = true;
         this._flash();
       });
 
@@ -68,10 +67,10 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
   }
 
   ngAfterViewChecked() {
-    if(this.newMessage) {
+    if(this.shouldScroll && this.newMessage) {
       this.elChatList.scrollTop = this.elChatList.scrollHeight;
+      this.newMessage = false;
     }
-    this.newMessage = false;
   }
 
   routerOnActivate(curr: RouteSegment, prev?: RouteSegment, currTree?: RouteTree, prevTree?: RouteTree) {
@@ -103,6 +102,10 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
     }
   }
 
+  scrolled() {
+    this.shouldScroll = this.elChatList.scrollTop + this.elChatList.clientHeight >= this.elChatList.scrollHeight-10
+  }
+
   blur() {
     this.bFocus = false;
   }
@@ -116,6 +119,10 @@ export class ChatComponent implements OnInit, OnActivate, OnDestroy, AfterViewCh
     setTimeout(()=>{
       this.element.nativeElement.querySelector('.chat-textbox').focus();
     },50)
+  }
+
+  childRendered(params) {
+    this.elChatList.scrollTop = this.elChatList.scrollHeight;
   }
 
   resized() {
