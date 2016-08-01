@@ -101,4 +101,8 @@ module.exports.setupImageRoutes = (app) => {
         resp.json(image);
       });
   });
+
+  app.get('/image', (req, resp)=> {
+    request.get(req.query.url).pipe(resp);
+  });
 };

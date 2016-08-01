@@ -1,12 +1,13 @@
 <div class="padded flex-container">
   <md-tab-group class="md-accent flex-container">
-    <template md-tab-label>Stats</template>
+    <template md-tab-label>Settings</template>
     <template md-tab-content>
       <md-card>
-        <md-card-title class="champ-title">In Progress</md-card-title>
+        <md-card-title class="champ-title">Options</md-card-title>
+        <md-checkbox [checked]="options.showImagePreviews" (change)="options.setImagePreviews($event)">Preview Images</md-checkbox>
       </md-card>
     </template>
-    <template md-tab-label>Settings</template>
+    <template md-tab-label>Stats</template>
     <template md-tab-content>
       <md-card>
         <md-card-title class="champ-title">In Progress</md-card-title>

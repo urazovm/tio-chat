@@ -3,6 +3,7 @@ import {CORE_DIRECTIVES} from '@angular/common';
 import {AuthHttp} from 'angular2-jwt';
 import { MdSpinner } from '@angular2-material/progress-circle';
 import { MdInput } from '@angular2-material/input';
+import { OptionsService } from '../../../../shared/options/options.service';
 
 declare var _;
 const imageTestRegex = /(?:\.jpg|\.png|\.gif)$/i;
@@ -18,7 +19,7 @@ export class PreviewComponent implements OnInit {
   @Output() rendered = new EventEmitter();
   urlMetadata: {} = null;
   allowNSFW: boolean = false;
-  constructor(private authHttp: AuthHttp) {
+  constructor(private authHttp: AuthHttp, public options: OptionsService) {
 
   }
 
@@ -31,7 +32,7 @@ export class PreviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (imageTestRegex.test(this.url)) {
+    if (imageTestRegex.test(this.url) && this.options.showImagePreviews) {
       this.rendered.emit({action: 'loading'});
       this.authHttp.get('/image-test?url=' + encodeURIComponent(this.url))
         .map((resp) => {

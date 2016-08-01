@@ -16,6 +16,7 @@ import { ChatManagerService } from './shared/chat-manager';
 import { UserManagerService } from './shared/user-manager';
 import { UserColorService } from './shared/user-color';
 import { SnippetComponent } from './+snippet/snippet.component';
+import { OptionsService } from './shared/options/options.service';
 
 const _ = window['_'];
 
@@ -26,7 +27,7 @@ const _ = window['_'];
   styleUrls: ['spoonado.component.css'],
   directives: [ROUTER_DIRECTIVES, MdToolbar, MdIcon, MdButton, MD_SIDENAV_DIRECTIVES, MD_LIST_DIRECTIVES],
   providers: [MdIconRegistry, MdRadioDispatcher, CurrentUserService, SocketService, ChatManagerService,
-    UserManagerService, RoomManagerService, UserColorService],
+    UserManagerService, RoomManagerService, UserColorService, OptionsService],
 })
 @Routes([
   {path: '/a', component: AuthenticatedComponent},
