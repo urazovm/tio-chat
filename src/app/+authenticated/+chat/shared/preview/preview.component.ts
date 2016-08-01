@@ -7,6 +7,7 @@ import { OptionsService } from '../../../../shared/options/options.service';
 
 declare var _;
 const imageTestRegex = /(?:\.jpg|\.png|\.gif)$/i;
+const youtubeRegex = /youtube.com\/.*v=(.*)$/i;
 @Component({
   moduleId: 'taranio',
   selector: 'preview',
@@ -15,6 +16,7 @@ const imageTestRegex = /(?:\.jpg|\.png|\.gif)$/i;
   directives: [CORE_DIRECTIVES, MdSpinner, MdInput],
 })
 export class PreviewComponent implements OnInit {
+  type: string = '';
   @Input() url: string;
   @Output() rendered = new EventEmitter();
   urlMetadata: {} = null;
@@ -33,6 +35,7 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit() {
     if (imageTestRegex.test(this.url) && this.options.showImagePreviews) {
+      this.type = 'img';
       this.rendered.emit({action: 'loading'});
       this.authHttp.get('/image-test?url=' + encodeURIComponent(this.url))
         .map((resp) => {
@@ -41,6 +44,13 @@ export class PreviewComponent implements OnInit {
         .subscribe( (data)=>{
           this.urlMetadata = data;
         });
+    } else if(youtubeRegex.test(this.url)) {
+      this.type = 'youtube';
+      let r = youtubeRegex.exec(this.url);
+      this.urlMetadata = {
+        url: this.url,
+        video: r[1]
+      }
     } else {
       this.urlMetadata = {
         url: this.url,
@@ -48,7 +58,6 @@ export class PreviewComponent implements OnInit {
         sfw: false,
       }
     }
-
   }
 
   getImageUrl() {
