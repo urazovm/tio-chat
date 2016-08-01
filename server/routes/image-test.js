@@ -1,6 +1,7 @@
 'use strict';
 const Promise = require('bluebird');
-const request = Promise.promisify(require('request'));
+const requestCB = require('request');
+const request = Promise.promisify(requestCB);
 const fs = require('fs');
 
 'use strict';
@@ -103,6 +104,7 @@ module.exports.setupImageRoutes = (app) => {
   });
 
   app.get('/image', (req, resp)=> {
-    request.get({url: req.query.url, headers: {"cache-control": "none"}}).pipe(resp);
+    req.pipe(requestCB(req.query.url)).pipe(resp);
+    //request.get({url: req.query.url, headers: {"cache-control": "none"}}).pipe(resp);
   });
 };
