@@ -8,8 +8,8 @@ export class OptionsService {
     }
 
     setImagePreviews(param) {
-        this.showImagePreviews = param;
-        let storageParam = (param ? 'y' : 'n');
+        this.showImagePreviews = param.checked;
+        let storageParam = (this.showImagePreviews ? 'y' : 'n');
         window.localStorage.setItem('imagePreviews', storageParam);
     }
 }

@@ -57,9 +57,11 @@ app.use( express.static( __dirname + '/dist' ) );
 app.set( 'case sensitive routing', false );
 
 //seems like there should be a better solution here...
-app.get( /^\/(?!node_modules|image-test).*/, function( req, res ) {
+app.get( /^\/(?!node_modules|image|image-test).*/, function( req, res ) {
   res.sendFile(path.join(__dirname+'/dist/index.html'));
 } );
+
+require('./server/routes/image-proxy').setupImageProxyRoutes(app);
 
 require('./server/routes/auth').createAuthRoutes(app, io, mongoose);
 require('./server/routes/chat-routes').addChatRoutes(app, io);
