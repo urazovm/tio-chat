@@ -103,6 +103,6 @@ module.exports.setupImageRoutes = (app) => {
   });
 
   app.get('/image', (req, resp)=> {
-    request.get(req.query.url).pipe(resp);
+    request.get({url: req.query.url, headers: {"cache-control": "none"}}).pipe(resp);
   });
 };
