@@ -50,4 +50,8 @@ export class PreviewComponent implements OnInit {
     }
 
   }
+
+  getImageUrl() {
+    return '/image?url=' + encodeURIComponent(this.url);
+  }
 }

@@ -1,6 +1,6 @@
 <div class="preview" *ngIf="options.showImagePreviews">
   <md-spinner *ngIf="!urlMetadata">
   </md-spinner>
-  <img (load)="loaded()" class="preview-image" *ngIf="urlMetadata && urlMetadata.exists && (allowNSFW || urlMetadata.sfw)" [src]="'/image?url=' + urlMetadata.url"/>
+  <img (load)="loaded()" class="preview-image" *ngIf="urlMetadata && urlMetadata.exists && (allowNSFW || urlMetadata.sfw)" [src]="getImageUrl()"/>
   <a md-raised-button class="toggle-nsfw" *ngIf="urlMetadata && urlMetadata.exists && !urlMetadata.sfw && !allowNSFW" (click)="allow()">Show NSFW Image</a>
 </div>
