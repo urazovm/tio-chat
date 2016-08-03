@@ -1,22 +1,13 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "declaration": false,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "system",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
+    "removeComments": false,
     "noImplicitAny": false,
-    "outDir": "dist/",
-    "rootDir": ".",
-    "sourceMap": false,
-    "target": "es5",
-    "outFile": "dist/app.js"
-  },
-
-  "files": [
-    "src/main.ts",
-    "src/typings.d.ts"
-  ]
+    "suppressImplicitAnyIndexErrors": true
+  }
 }

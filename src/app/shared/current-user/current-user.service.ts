@@ -11,7 +11,7 @@ export class CurrentUserService {
   overwatchData: any;
   originalDestination: string;
   private _overwatchDataOvservers: Observer<any[]>[] = [];
-  public overwatchDatasObservable: Observable<any[]>;
+  public overwatchDatasObservable: Observable<any>;
 
   constructor(private socket: SocketService) {
     this.user = window.localStorage.getItem('user');
