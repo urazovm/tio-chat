@@ -1,0 +1,9 @@
+<div class="preview" *ngIf="options.showImagePreviews">
+  <md-spinner *ngIf="!urlMetadata">
+  </md-spinner>
+
+  <img (load)="loaded()" class="preview-image" *ngIf="urlMetadata && type === 'img' && urlMetadata.exists && (allowNSFW || urlMetadata.sfw)" [src]="getImageUrl() | safeHtml"/>
+  <a md-raised-button class="toggle-nsfw" *ngIf="type === 'img' && urlMetadata && urlMetadata.exists && !urlMetadata.sfw && !allowNSFW" (click)="allow()">Show NSFW Image</a>
+
+  <iframe  *ngIf="type==='youtube'" width="560" height="315" [src]="'https://www.youtube.com/embed/' + urlMetadata.video | safeHtml" frameborder="0" allowfullscreen></iframe>
+</div>

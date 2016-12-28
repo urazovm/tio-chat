@@ -1,3 +1,19 @@
-<p>
-  login works!
-</p>
+<div class="flex-container">
+  <div>
+    <md-card>
+      <md-input-container>
+        <input #user md-input placeholder="username" (blur)="setUsername(user.value)" >
+      </md-input-container>
+
+      <div *ngIf="error" class="error">*{{error}}</div>
+      <!--<md-input type="password" placeholder="password(optional)" ngControl="username"></md-input>-->
+      <md-input-container>
+        <input md-input #pass type="password" placeholder="password(optional)" (blur)="setPassword(pass.value)" >
+      </md-input-container>
+
+      <div class="login-button">
+        <button md-raised-button (click)="login(f)" [disabled]="loggingIn">login</button>
+      </div>
+    </md-card>
+  </div>
+</div>

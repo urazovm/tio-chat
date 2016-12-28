@@ -12,19 +12,19 @@ import '@angular/router';
 import 'rxjs';
 
 /*
-import '@angular2-material/toolbar';
-import '@angular2-material/icon';
-import '@angular2-material/button/button';
-import '@angular2-material/sidenav/sidenav';
-import '@angular2-material/list/list';
-*/
+import '@angular/material/card/card';
+import '@angular/material/input/input';
+import '@angular/material';*/
+//import '@angular2-material/sidenav/sidenav';
+//import '@angular2-material/list/list';
+
 
 //lodash
 import 'lodash/lodash.min';
 import 'angular2-jwt/angular2-jwt';
 // Other vendors for example jQuery, Lodash or Bootstrap
 // You can import js, ts, css, sass, ...
-/*
+
 //codemirror
 import 'codemirror/lib/codemirror.js';
 import 'codemirror/addon/hint/show-hint.js';
@@ -34,4 +34,4 @@ import 'codemirror/mode/markdown/markdown.js';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/hint/show-hint.css';
-*/
+

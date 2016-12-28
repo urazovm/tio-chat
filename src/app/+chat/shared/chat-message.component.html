@@ -1,0 +1,15 @@
+<div *ngIf="msg.type==='chat'">
+  <span *ngFor="let word of words; let i = $index; trackBy:msgTracker;"
+        [ngSwitch]="word.type">
+    <span *ngSwitchCase="'user'" [style.color]="getColor(word.span)">{{word.span}}</span>
+    <div *ngSwitchCase="'link'" style="display:inline-block">
+      <a target="_blank" href="{{getLinkHref(word.span)}}">{{word.span}}</a>
+      <preview (rendered)="childRendered()" [url]="word.span"></preview>
+    </div>
+
+    <br *ngSwitchCase="'newline'" />
+    <code-editor *ngSwitchCase="'code'" [code]="word.span"></code-editor>
+    <span *ngSwitchDefault>{{word.span || '&nbsp;' }}</span>
+  </span>
+</div>
+<div *ngIf="msg.type==='date'" class="message-date">{{msg.timestamp | date:'shortTime'}}</div>

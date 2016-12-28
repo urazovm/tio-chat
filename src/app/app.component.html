@@ -1,1 +1,55 @@
-<router-outlet></router-outlet>
+<md-sidenav-layout  fullscreen class="flex-container">
+  <md-sidenav #start mode="side" class="side-nav">
+    <md-list dense>
+      <h3 md-subheader>My Account</h3>
+      <md-list-item>
+        <button md-button (click)="navigate('a/profile')">
+          Profile
+        </button>
+      </md-list-item>
+      <md-list-item>
+        <button md-button (click)="logout()">
+          Log Out
+        </button>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item *ngIf="currentUser.user">
+        <button md-button (click)="navigate('a/trip')">
+          Current Hike
+        </button>
+      </md-list-item>
+      <md-divider></md-divider>
+      <h3 md-subheader>Chat Rooms</h3>
+      <md-list-item *ngIf="currentUser.user">
+        <button md-button (click)="navigate('a/chat/general')">
+          general
+        </button>
+      </md-list-item>
+      <!--<md-list-item *ngFor="let room of chatRooms">
+        <button md-button (click)="navigate('a/chat/'+room.name)">
+          {{room.id}}
+        </button>
+      </md-list-item>-->
+
+      <md-divider></md-divider>
+      <md-list-item>
+        <button md-button (click)="start.close()">CLOSE</button>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+  <div>
+    <md-toolbar color="accent">
+      <button md-icon-button (click)="start.toggle()" md-raised-button color="primary">
+        <md-icon >menu</md-icon>
+      </button>
+      <div class="toolbar-content">
+        <h1>
+          Taran.io
+        </h1>
+      </div>
+    </md-toolbar>
+  </div>
+  <div class="flex-container">
+    <router-outlet></router-outlet>
+  </div>
+</md-sidenav-layout>

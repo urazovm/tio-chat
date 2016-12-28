@@ -1,0 +1,29 @@
+<div class="chat-component" (window:blur)="blur()" (window:focus)="focus()">
+  <div class="chat-container">
+    <div class="chat-body" (window:resize)="resized()" (scroll)="scrolled()">
+      <div *ngFor="let msgBlock of msgs | chat; trackBy:chatTracker;">
+        <div [ngClass]="currentUser.user === msgBlock.user ? 'self-message' : 'other-message'"
+             [class.notify-message]="msgBlock.mentionsMe">
+          <div class="chat-header">
+            <span class="chat-header-user">{{msgBlock.user === currentUser.user ? 'You' : msgBlock.user}}</span>
+            &nbsp;
+            <span class="chat-header-time">{{msgBlock.timestamp | date:'shortTime'}}</span>
+          </div>
+          <div *ngFor="let msg of msgBlock.msgs; trackBy:chatTracker;">
+            <message (rendered)="childRendered()" [msg]="msg"></message>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="message-box">
+      <textarea class="chat-textbox" placeholder="message"
+                (keydown.enter)="sendMessage($event)"></textarea>
+    </div>
+  </div>
+  <div class="users-container">
+    <h5>Online:</h5>
+    <div *ngFor="let user of users" class="chat-user" [style.color]="userColors.getColorForUser(user)">
+      {{user}}
+    </div>
+  </div>
+</div>

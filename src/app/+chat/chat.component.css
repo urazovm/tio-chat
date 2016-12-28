@@ -1,0 +1,100 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.chat-component {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat-container {
+
+  display:flex;
+  flex-direction: column;
+  flex: 80;
+}
+
+.chat-body {
+  padding: 8px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.users-container {
+  padding: 8px;
+  display:flex;
+  flex-direction: column;
+  flex: 0 0 100px;
+  background-color: #f3f3f3;
+  border-left: 1px solid #e0d9d9;
+}
+
+.self-message {
+  padding: 8px;
+  margin: 4px 4px 4px 4px;
+  border-radius: 13px;
+  border: 1px solid #eaeaea;
+  background-color: #fbfbfb;
+}
+
+.other-message {
+  padding: 8px;
+  margin: 4px 4px 4px 4px;
+  border-radius: 13px;
+  border: 1px solid #eaeaea;
+  background-color: #fbfbfb;
+
+}
+.message-box {
+  padding: 8px;
+  display:flex;
+  flex: none;
+  margin-bottom:10px;
+}
+
+.message-box md-card{
+  width:100%;
+}
+
+.message-box md-input {
+  width: 100%;
+}
+
+.chat-header {
+  margin-bottom: 8px;
+}
+
+.chat-header-user {
+  font-size: large;
+  font-weight: bold;
+}
+
+.chat-header-time {
+  font-size: small;
+  opacity: .6;
+  float: right;
+}
+
+.chat-user {
+  overflow-wrap: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100px;
+  text-overflow: ellipsis;
+}
+
+.chat-textbox {
+  resize: none;
+  width: 100%;
+}
+
+.notify-message {
+  border: 1px solid darkorange;
+}

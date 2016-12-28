@@ -9,7 +9,9 @@
     "removeComments": false,
     "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
-    "types": []
+    "types": [
+      "hammerjs"
+    ]
   },
   "exclude": [
     "typings",
