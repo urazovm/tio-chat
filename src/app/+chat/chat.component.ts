@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef, Input, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef, Input, ChangeDetectorRef, trigger, state, style,
+    transition, animate} from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 
 import { ChatManagerService } from '../shared/chat-manager';
@@ -11,9 +12,24 @@ import { NotificationService } from '../shared/notifications/notificaiton.servic
   selector: 'app-chat',
   templateUrl: 'chat.component.html',
   styleUrls: ['chat.component.css'],
+  animations: [
+      trigger('usersState', [
+          state('open', style({
+            width: '100px',
+          })),
+          state('closed', style({
+            width: '0px',
+            overflow: 'hidden',
+            padding: '0px'
+          })),
+          transition('open => close', animate('400ms ease-in')),
+          transition('close => open', animate('400ms ease-out'))
+      ])
+  ]
 })
 export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   id: string;
+  userState: string = 'closed';
   msgs: any[] = [];
   users: any[] = [];
   roomSubscription: any;
@@ -77,6 +93,18 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.chatManager.sendMessage(this.id, target.value);
     target.value = null;
     event.preventDefault();
+  }
+
+  openUserState() {
+    this.userState = 'open';
+  }
+
+  closeUserState() {
+    this.userState = 'closed';
+  }
+
+  toggleUserState() {
+    this.userState = this.userState === 'open' ? 'closed' : 'open';
   }
 
   _flash() {

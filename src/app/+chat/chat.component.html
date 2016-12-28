@@ -20,10 +20,14 @@
                 (keydown.enter)="sendMessage($event)"></textarea>
     </div>
   </div>
-  <div class="users-container">
-    <h5>Online:</h5>
-    <div *ngFor="let user of users" class="chat-user" [style.color]="userColors.getColorForUser(user)">
-      {{user}}
-    </div>
+</div>
+<div style="position:absolute; right: 0px; width: 50px; height: 50px; z-index:10;" (click)="openUserState()"
+     (swipeleft)="openUserState()">
+  <md-icon style="margin-top: 8px; margin-left: 8px; cursor: pointer;">person</md-icon>
+</div>
+<div class="users-container" [@usersState]="userState" (swiperight)="closeUserState()">
+    <md-icon (click)="closeUserState()" style="float: right; font-size: small; cursor: pointer;">close</md-icon>
+  <div *ngFor="let user of users" class="chat-user" [style.color]="userColors.getColorForUser(user)">
+    {{user}}
   </div>
 </div>

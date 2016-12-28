@@ -1,4 +1,4 @@
-import { AppComponent } from './app.component';
+
 import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
@@ -11,6 +11,7 @@ const routes: Routes = [
     { path: 'login', loadChildren: './+login/login.module#LoginModule'},
     { path: 'chat', loadChildren: './+chat/chat.module#ChatModule', canActivate: [LoginAuthGuard] },
     { path: 'a/chat', loadChildren: './+chat/chat.module#ChatModule', canActivate: [LoginAuthGuard] },
+    { path: 'profile', loadChildren: './+profile/profile.module#ProfileModule', canActivate: [LoginAuthGuard] },
     { path: '**', component: PageNotFoundComponent }
 ];
 

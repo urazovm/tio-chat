@@ -1,9 +1,10 @@
+<div style="position:absolute; width: 50px; height: 60%; z-index:10;" (mouseenter)="start.open()" (swiperight)="start.open()"></div>
 <md-sidenav-layout  fullscreen class="flex-container">
-  <md-sidenav #start mode="side" class="side-nav">
+  <md-sidenav #start style="z-index: 15;" mode="side" class="side-nav" (mouseleave)="start.close()" (swipeleft)="start.close()">
     <md-list dense>
       <h3 md-subheader>My Account</h3>
       <md-list-item>
-        <button md-button (click)="navigate('a/profile')">
+        <button md-button (click)="navigate('profile')">
           Profile
         </button>
       </md-list-item>
@@ -37,18 +38,6 @@
       </md-list-item>
     </md-list>
   </md-sidenav>
-  <div>
-    <md-toolbar color="accent">
-      <button md-icon-button (click)="start.toggle()" md-raised-button color="primary">
-        <md-icon >menu</md-icon>
-      </button>
-      <div class="toolbar-content">
-        <h1>
-          Taran.io
-        </h1>
-      </div>
-    </md-toolbar>
-  </div>
   <div class="flex-container">
     <router-outlet></router-outlet>
   </div>
