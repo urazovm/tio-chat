@@ -1,6 +1,7 @@
-<div style="position:absolute; width: 50px; height: 60%; z-index:10;" (mouseenter)="start.open()" (swiperight)="start.open()"></div>
+<div style="position:absolute; width: 50px; height: 60%; z-index:10;" (mouseenter)="start.open()" [style.width]="start.opened ? '0px' : '50px'"></div>
+<div style="position:absolute; width: 100px; height: 90%; z-index:10;" (swiperight)="start.open()" [style.width]="start.opened ? '0px' : '100px'"></div>
 <md-sidenav-layout  fullscreen class="flex-container">
-  <md-sidenav #start style="z-index: 15;" mode="side" class="side-nav" (mouseleave)="start.close()" (swipeleft)="start.close()">
+  <md-sidenav style="z-index: 15" #start mode="side" class="side-nav" (mouseleave)="start.close()" (swipeleft)="start.close()">
     <md-list dense>
       <h3 md-subheader>My Account</h3>
       <md-list-item>
