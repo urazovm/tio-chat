@@ -1,4 +1,5 @@
 /* tslint:disable:no-unused-variable */
+///<reference path="./../../typings/globals/jasmine/index.d.ts"/>
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
